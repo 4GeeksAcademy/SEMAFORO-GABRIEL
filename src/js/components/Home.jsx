@@ -1,27 +1,34 @@
-import React from "react";
-
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
-
+import React,{useState,useEffect} from "react";
 //create your first component
 const Home = () => {
-	return (
-		<div className="text-center">
-            
+const [color,setColor]=useState("verde") 
 
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
+
+useEffect(()=> {
+
+	const interval=setInterval(()=>{
+		if(color==="verde"){
+			setColor("amarillo")
+		} else if(color==="amarillo"){
+			setColor("rojo")
+		} else if(color==="rojo"){
+			setColor("verde")
+		}
+	    
+	},3000)
+	return()=>clearInterval(interval)
+},)
+
+
+
+	return (
+		<> 
+		<div className="bg-dark w-25 mx-auto mt-5 d-flex flex-column justify-content-center align-items-center py-5"> 
+			<p onClick={()=>setColor("verde")} className={`luz rounded-circle ${color==="verde"? "bg-success" : "bg-secondary"}`}></p>
+			<p onClick={()=>setColor("amarillo")}className={`luz rounded-circle ${color==="amarillo"? "bg-warning" : "bg-secondary"}`}></p>
+			<p onClick={()=>setColor("rojo")}className={`luz rounded-circle ${color==="rojo"? "bg-danger" : "bg-secondary"}`}></p>
 		</div>
+		</>
 	);
 };
 
